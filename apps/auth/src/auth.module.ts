@@ -15,12 +15,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         url: configService.get('POSTGRES_URI'),
-
+        autoLoadEntities: true,
+        synchronize: true, //not use in production may lose some data
       }),
       inject: [ConfigService],
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService], 
 })
 export class AuthModule {}
+ 
